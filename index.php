@@ -1,5 +1,4 @@
 
-
 <?php
 
 /*%******************************************************************************************%*/
@@ -18,11 +17,12 @@ require_once 'AWSSDKforPHP/sdk.class.php';
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title></title>
+	<title>yowo.me</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
