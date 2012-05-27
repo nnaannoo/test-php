@@ -8,7 +8,7 @@
 error_reporting(-1);
 
 // Include the SDK
-require_once '../test-php/AWSSDKforPHP/sdk.class.php';
+require_once 'AWSSDKforPHP/sdk.class.php';
 
 ?>
 
