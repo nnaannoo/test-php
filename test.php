@@ -1,8 +1,8 @@
 
 <?php 
 
-	include "code/config.factory.php";
-	include "code/store/simpleDbConnector.php";
+	include_once "code/ConfigIni.php";
+	include_once "code/Factory.php";
 
 ?>
 
@@ -15,19 +15,32 @@
 	<?php echo '<p>Hola Mundo</p>'; ?>
 	
 	<?php 
-	
-		$user = new User();
-		$user->userId = com_create_guid();
-		$user->infoItems["test"] = 'test';
-	
-		$temp = new SimpleDbConnector();
-		$temp->putItem($user->userId, $user);
 		
-		$user2 = $temp->getItem($user->userId);
-		
-		print_r($user2);
+		$store = Factory::Get("store");
 
+		$user = Factory::Get("user");
+		$user->userId = "1";
 		
+		print_r($user);
+		
+// 		$user->infoItems["test"] = 'testvalue';
+// 		$user->infoItems["pepe"] = 'pepevalue';
+	
+// 		print("user");
+// 		print_r($user);	
+		
+// 		
+// 		$temp->putItem($user->userId, $user);
+		
+		
+		
+// 		print("get user: " . $user->userId);		
+// 		$user2 = $temp->getItem($user->userId);
+// 		print_r($user2->userId);
+		
+		exit;
+		
+			
 	
 	?>
 	
