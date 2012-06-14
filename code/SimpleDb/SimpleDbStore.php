@@ -19,45 +19,6 @@ class SimpleDbStore implements IStore
 	{
 		$this->_sdb = new AmazonSDB();
 		$response = $this->_sdb->get_domain_list(_DB_NAME);
-
-
-/* 		foreach ($response as &$value) {
-			print($value);
-		}
-
-		$temp = new User();
-		$temp->userId = com_create_guid();
-
-		$tempArray = get_object_vars($temp);
-
-		$resp = $_sdb->put_attributes(_DB_NAME, $temp->userId, $tempArray);
-		
-		$resp = $_sdb->put_attributes(_DB_NAME, 'example', array(
-		    'key1' => 'value1',
-		    'key2' => array(
-		        'value1',
-		        'value2',
-		        'value3'
-		    )));
-
-		print($resp->isOK());
-
-		$sql = "select * from " . _DB_NAME;
-		
-		
-		
-		// . " where Name = '$temp->userId'"
-		
-		$resp = $_sdb->select($sql); */
-		
-
-		//print('<pre>**************************</pre>');
-		// print(isset($response->body->SelectResult));
-		// $resp->body->SelectResult->next();
-		// print_r($resp->body);
-		//print('<pre>**************************</pre>');
-
-		// var_dump($resp);
 	}
 
 	function arrayToObject($array) {
@@ -103,12 +64,11 @@ class SimpleDbStore implements IStore
 	
 	public function PutItem($id, IObjSerializer $obj)
 	{	
-		$graph = $obj->ToGraph($obj);
-						
-		print("%");
-		print_r($tempArray);
+		$graph = $obj->ToGraph();
 		
-		$resp = $this->_sdb->put_attributes(_DB_NAME, $id, $tempArray, true);
+		print_r($graph);
+		
+		$resp = $this->_sdb->put_attributes(_DB_NAME, $id, $graph, true);
 		
 		if ($resp->isOK())
 		{
@@ -116,12 +76,11 @@ class SimpleDbStore implements IStore
 		}
 	}
 	
-	public function GetItem($id)
+	public function GetItem($id, IObjSerializer &$obj)
 	{
-		$sql = "select * from " . _DB_NAME . " where ItemName() = '$id'";
-		
-// 		print($sql);
-		
+		$sql = "select * from " . _DB_NAME;
+
+// 		. " where ItemName() = '$id'";
 		$resp = $this->_sdb->select($sql);
 		
 		$ret = NULL;
@@ -129,38 +88,13 @@ class SimpleDbStore implements IStore
 		if ($resp->isOK())
 		{
 			$tmp = $resp->body->SelectResult->to_Array();
-			$item = $tmp["Item"]["Attribute"];
-			
-			print_r($tmp["Item"]);
-			
-			$ret = array();
-			
-			foreach ( $item as $key => $value )
-			{
-				//print($value["Name"]  . "/" . $value["Value"] . ",");
-				
-				$ret[$value["Name"]] = $value["Value"];
-				
-// 				$ret[$value["Name"]] = $value["Value"];
-			}
-			
-			
-			
-// 			$ret = $this->arrayToObject($ret["Item"]);
-			
-  			print_r($ret);
+			$obj->FromGraph($tmp);
 		}
-		else
-		{
-// 			print("gettItem error");
-		}
-		
-		return $ret;
-	}
+ 	}
 	
 	public function RemoveItem($id)
 	{
-		$this->_sdb->remove_attributes(_DB_NAME, $temp->userId, $tempArray, true);		
+		$this->_sdb->delete_attributes(_DB_NAME, $id);		
 	}
 }
 

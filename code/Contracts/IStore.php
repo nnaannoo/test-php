@@ -3,7 +3,7 @@
 interface IStore
 {
 	function PutItem($id, IObjSerializer $obj);
-	function GetItem($id);
+	function GetItem($id, IObjSerializer &$obj);
 	function RemoveItem($id);
 }
 

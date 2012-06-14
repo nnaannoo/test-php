@@ -4,8 +4,8 @@ interface IObjSerializer
 {
 	function GetTypeName();
 	
-	function ToObj($graph);
-	function ToGraph($obj);
+	function FromGraph($graph);
+	function ToGraph();
 }
 
 ?>

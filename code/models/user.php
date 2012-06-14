@@ -2,8 +2,8 @@
 
 class User
 {
-	public $userId;
-	public $infoItems = array();
+	public $UserId;
+	public $InfoItems = array();
 }
 
 ?>
